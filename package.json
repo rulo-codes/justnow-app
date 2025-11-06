@@ -18,6 +18,7 @@
   "homepage": "https://github.com/rulo-codes/justnow-app#readme",
   "description": "",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "mysql": "^2.18.1"
   }
 }
