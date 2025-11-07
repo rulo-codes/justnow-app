@@ -4,11 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JUSTNOW</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="user_style.css">
 </head>
 <body>
-    <h2>Welcome! <span id="userName"></span></h2>
-    <button id="logoutBtn">Logout</button>
+    <div class="main">
+        <div class="box" id="user_diary">
+
+        </div>
+        <div class="box" id="user_interface">
+            <h2>Hello! <span id="userName"></span></h2>
+            <p>How is your day today?</p>
+            <button name="createPost" id="createPost">Just now...</button>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </div>
     <script src="user_script.js"></script>
 </body>
 </html>
