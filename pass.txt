@@ -1,0 +1,3 @@
+Mongodb connection:
+
+mongodb+srv://rulodb:<db_password>@cluster0.0pebph9.mongodb.net/?appName=Cluster0

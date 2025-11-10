@@ -6,11 +6,32 @@ const bcrypt = require('bcrypt');
 const db = require('./db');
 
 const publicPath = path.join(__dirname, 'public');
-
-// simple session simulation
 let loggedInUser = null;
 
 const server = http.createServer((req, res) => {
+  // GET /api/posts (fetch diaries)
+  if (req.method === 'GET' && req.url === '/api/posts') {
+    if(!loggedInUser || !loggedInUser.id){
+      console.error("Error: Unauthorized");
+      res.writeHead(401, {'Content-Type': 'application/json'});
+      return res.end(JSON.stringify({ error: "Unauthorized."}));
+    }
+
+    const userId = loggedInUser.id;
+    const sql = 'SELECT * FROM diary_entries WHERE user_id = ? ORDER BY id DESC';
+
+    db.query(sql, [userId], (err, results) => {
+      if (err) {
+        console.error('Error fetching diaries: ', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify([]));
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(results));
+    });
+    return;
+  }
+  
   // Serve static files
   if (req.method === 'GET') {
     let filePath = req.url === '/' ? '/index.html' : req.url;
@@ -30,17 +51,61 @@ const server = http.createServer((req, res) => {
       res.setHeader('Content-Type', contentType);
       res.end(content);
     });
+    return;
   }
 
-  // Handle POST requests (Register, Login, Logout)
-  else if (req.method === 'POST') {
+  // POST /api/post (create diary)
+  if (req.method === 'POST' && req.url === '/api/post') {
+
+    if(!loggedInUser || !loggedInUser.id){
+      res.statusCode = 401;
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify({success: false, error: "Unauthorized. Please log in."}));
+      return;
+    }
+
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      try {
+        const { diaryContent } = JSON.parse(body);
+        const userId = loggedInUser.id;
+        const sql = 'INSERT INTO diary_entries (user_id, content) VALUES (?, ?)';
+        db.query(sql, [userId, diaryContent], (err, result) => {
+          res.setHeader('Content-Type', 'application/json');
+          if (err) {
+            res.statusCode = 500;
+            res.end(JSON.stringify({ success: false, error: "Database error during upload." }));
+            return;
+          }
+          res.statusCode = 200;
+          res.end(JSON.stringify({ success: true, id: result.insertId }));
+        });
+      } catch (error) {
+        console.error('JSON parsing error: ', error);
+        res.statusCode = 400;
+        res.end(JSON.stringify({ success: false, error: "Invalid JSON." }));
+      }
+    });
+    return;
+  }
+
+  // POST /logout
+  if (req.method === 'POST' && req.url === '/logout') {
+    loggedInUser = null;
+    res.statusCode = 200;
+    res.end('Logged out');
+    return;
+  }
+
+  // POST / (login/register)
+  if (req.method === 'POST' && req.url === '/') {
     let body = '';
     req.on('data', chunk => body += chunk);
     req.on('end', async () => {
       const data = qs.parse(body);
       const formType = data.formType;
 
-      // REGISTER
       if (formType === 'register') {
         try {
           const hashedPassword = await bcrypt.hash(data.password, 10);
@@ -60,14 +125,8 @@ const server = http.createServer((req, res) => {
         }
       }
 
-      // LOGIN
       else if (formType === 'login') {
-        console.log('Login data:', data);
-
-        const sql = "SELECT * FROM users WHERE email = ?";
-        console.log('SQL Query:', sql, [data.email]);
-
-        db.query(sql, [data.email], async (err, results) => {
+        db.query('SELECT * FROM users WHERE email = ?', [data.email], async (err, results) => {
           if (err) {
             res.statusCode = 500;
             res.end(JSON.stringify({ error: 'Server error during login.' }));
@@ -80,38 +139,23 @@ const server = http.createServer((req, res) => {
             return;
           }
 
-          console.log('Results from DB:', results);
-          
           const user = results[0];
-          console.log('Raw entered password:', data.password);
-          console.log('Stored hashed password:', user.password);
-
-            try {
+          try {
             const match = await bcrypt.compare(data.password, user.password);
-            console.log('Password match result:', match);
-
             if (match) {
-                res.setHeader('Content-Type', 'application/json');
-                res.end(JSON.stringify({ success: true,  username: user.username, message: 'Login successful!' }));
+              loggedInUser = user;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ success: true, username: user.username, message: 'Login successful!' }));
             } else {
-                res.statusCode = 401;
-                res.setHeader('Content-Type', 'application/json');
-                res.end(JSON.stringify({ error: 'Invalid password.' }));
+              res.statusCode = 401;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ error: 'Invalid password.' }));
             }
-
-            } catch (err) {
-            console.error('Bcrypt error:', err);
+          } catch (err) {
             res.statusCode = 500;
             res.end('Server error during password comparison');
-            }
+          }
         });
-      }
-
-      // LOGOUT
-      else if (req.url === '/logout') {
-        loggedInUser = null;
-        res.statusCode = 200;
-        res.end('Logged out');
       }
 
       else {
@@ -119,12 +163,11 @@ const server = http.createServer((req, res) => {
         res.end('Unknown form type.');
       }
     });
+    return;
   }
 
-  else {
-    res.statusCode = 404;
-    res.end('Not Found');
-  }
+  res.statusCode = 404;
+  res.end('Not Found');
 });
 
 server.listen(3000, () => console.log('Server running on http://localhost:3000'));
