@@ -90,6 +90,40 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  //POST delete diary
+  if(req.method === 'POST' && req.url === '/api/delete'){
+    if(!loggedInUser || !loggedInUser.id){
+      res.statusCode = 401;
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify({success: false, error: "Unauthorized. Please log in."}));
+      return;
+    }
+    
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      try{
+        const { diary_id } = JSON.parse(body);
+        console.log(diary_id);
+        const sql = 'DELETE FROM diary_entries WHERE id = ?';
+        db.query(sql, [diary_id], (err) => {
+          res.setHeader('Content-Type', 'application/json');
+          if(err){
+            res.statusCode = 500;
+            res.end(JSON.stringify({success: false, error: "Error deleting row."}));
+            return;
+          }
+          res.statusCode = 200;
+          res.end(JSON.stringify({success: true}))
+        })
+      }catch(error){
+        res.statusCode = 400;
+        res.end(JSON.stringify({success: false, error: "Database error."}))
+      }
+    });
+    return;
+  }
+
   // POST /logout
   if (req.method === 'POST' && req.url === '/logout') {
     loggedInUser = null;

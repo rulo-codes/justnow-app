@@ -31,12 +31,42 @@ document.getElementById('diary_post').addEventListener('click', async (e) => {
   }
 });
 
+async function deleteDiary(diary_id){
+  if(!diary_id) return alert("Diary not found");
+
+  const res = await fetch('/api/delete', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({diary_id})
+  });
+
+  const data = await res.json();
+  if(!data.success){
+    alert('Diary failed to delete.');
+  } else {
+    alert('Diary deleted.');
+    loadDiaries();
+  }
+};
+
 async function loadDiaries() {
   try {
     const res = await fetch('/api/posts');
     const diaries = await res.json();
     const container = document.getElementById('diaries');
-    container.innerHTML = diaries.map(i => `<p>${i.content}</p>`).join('');
+    container.innerHTML = diaries.map(i => {
+      const date = new Date(i.created_at).toLocaleDateString('en-US');
+      const time = new Date(i.created_at).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'});
+      return (
+      `<div id=${i.id} class="diary_item">
+        <div class="diary_item_header"><h3>${date}  |  ${time}</h3><button id="delete_diary_btn" onclick="deleteDiary(${i.id})">Delete</button></div>
+        <div class="line"></div>
+        <p>Just now... <span>${i.content}</span></p>
+      </div>`
+      )
+    }).join('');
   } catch (err) {
     console.error('Error loading diaries:', err);
   }
