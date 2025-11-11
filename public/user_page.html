@@ -9,18 +9,20 @@
 <body>
     <div class="main">
         <div class="box" id="user_diary">
-            <textarea id="diary_input" placeholder="Just now..."></textarea>
-            <button id="diary_post">Post</button>
-
-            <div id="diary_logs">
-                <h1>My Diary</h1>
-                <div id="diaries"></div>
+            <h2>Saved Entries</h2>
+            <div id="diary_add" class="diary_add open-window">
+                <textarea id="diary_input" placeholder="Just now..."></textarea>
+                <button id="diary_post" class="diary_btn diary_post">Post</button>
+                <i class="basil--cancel-outline diary_btn diary_cancel"></i>
+            </div>
+            <div id="diaries">
             </div>
         </div>
         <div class="box" id="user_interface">
+            <img id="default_user_picture" src="/assets/default_user.png" />
             <h2>Hello! <span id="userName"></span></h2>
             <p>How is your day today?</p>
-            <button name="createPost" id="createPost">Just now...</button>
+            <button name="toggleDiary" id="toggleDiaryBtn">Just now...</button>
             <button id="logoutBtn">Logout</button>
         </div>
     </div>

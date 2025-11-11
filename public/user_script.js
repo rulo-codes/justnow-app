@@ -1,3 +1,12 @@
+function toggleWindow(id){
+  const div = document.getElementById(id);
+  if(div.classList.contains("open-window")){
+    div.classList.remove("open-window");
+  }else {
+    div.classList.add("open-window");
+  }
+}
+
 document.getElementById('logoutBtn').addEventListener('click', async () => {
   const res = await fetch('/logout', { method: 'POST' });
   if (res.ok) {
@@ -5,6 +14,10 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
   } else {
     alert('Error logging out.');
   }
+});
+
+document.getElementById('toggleDiaryBtn').addEventListener('click', () => {
+  toggleWindow("diary_add")
 });
 
 document.getElementById('diary_post').addEventListener('click', async (e) => {
@@ -61,7 +74,7 @@ async function loadDiaries() {
       const time = new Date(i.created_at).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'});
       return (
       `<div id=${i.id} class="diary_item">
-        <div class="diary_item_header"><h3>${date}  |  ${time}</h3><button id="delete_diary_btn" onclick="deleteDiary(${i.id})">Delete</button></div>
+        <div class="diary_item_header"><h3>${date}  |  ${time}</h3><button id="delete_diary_btn" onclick="deleteDiary(${i.id})" title="Erase diary entry."><i class="solar--eraser-bold"></i></button></div>
         <div class="line"></div>
         <p>Just now... <span>${i.content}</span></p>
       </div>`
