@@ -2,20 +2,36 @@
 
 .solar--eraser-bold {
   display: inline-block;
-  width: 24px;
-  height: 24px;
+  width: 100%;
+  height: 100%;
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231e1e1e' d='M11.41 5.505C13.08 3.835 13.915 3 14.952 3c1.038 0 1.873.835 3.543 2.505S21 8.01 21 9.048c0 1.037-.835 1.872-2.505 3.542l-4.193 4.194l-7.086-7.086z'/%3E%3Cpath fill='%231e1e1e' d='m6.156 10.759l7.085 7.085l-.65.65c-.378.379-.713.714-1.018 1.006H21a.75.75 0 0 1 0 1.5H9c-1.016-.025-1.85-.86-3.495-2.505C3.835 16.825 3 15.99 3 14.952c0-1.037.835-1.872 2.505-3.542z'/%3E%3C/svg%3E");
+  background-color: #4d4e50;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11.41 5.505C13.08 3.835 13.915 3 14.952 3c1.038 0 1.873.835 3.543 2.505S21 8.01 21 9.048c0 1.037-.835 1.872-2.505 3.542l-4.193 4.194l-7.086-7.086z'/%3E%3Cpath fill='%231e1e1e' d='m6.156 10.759l7.085 7.085l-.65.65c-.378.379-.713.714-1.018 1.006H21a.75.75 0 0 1 0 1.5H9c-1.016-.025-1.85-.86-3.495-2.505C3.835 16.825 3 15.99 3 14.952c0-1.037.835-1.872 2.505-3.542z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11.41 5.505C13.08 3.835 13.915 3 14.952 3c1.038 0 1.873.835 3.543 2.505S21 8.01 21 9.048c0 1.037-.835 1.872-2.505 3.542l-4.193 4.194l-7.086-7.086z'/%3E%3Cpath fill='%231e1e1e' d='m6.156 10.759l7.085 7.085l-.65.65c-.378.379-.713.714-1.018 1.006H21a.75.75 0 0 1 0 1.5H9c-1.016-.025-1.85-.86-3.495-2.505C3.835 16.825 3 15.99 3 14.952c0-1.037.835-1.872 2.505-3.542z'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.solar--eraser-bold:hover{
+    background-color: rgb(223, 56, 56);
 }
 
 .basil--cancel-outline {
   display: inline-block;
-  width: 24px;
-  height: 24px;
+  width: 100%;
+  height: 100%;
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231e1e1e' d='M8.47 8.47a.75.75 0 0 1 1.06 0L12 10.94l2.47-2.47a.75.75 0 1 1 1.06 1.06L13.06 12l2.47 2.47a.75.75 0 0 1-1.06 1.06L12 13.06l-2.47 2.47a.75.75 0 1 1-1.06-1.06L10.94 12L8.47 9.53a.75.75 0 0 1 0-1.06'/%3E%3Cpath fill='%231e1e1e' fill-rule='evenodd' d='M7.317 3.769a42.5 42.5 0 0 1 9.366 0c1.827.204 3.302 1.643 3.516 3.48c.37 3.157.37 6.346 0 9.503c-.215 1.837-1.69 3.275-3.516 3.48a42.5 42.5 0 0 1-9.366 0c-1.827-.205-3.302-1.643-3.516-3.48a41 41 0 0 1 0-9.503c.214-1.837 1.69-3.276 3.516-3.48m9.2 1.49a41 41 0 0 0-9.034 0A2.486 2.486 0 0 0 5.29 7.424a39.4 39.4 0 0 0 0 9.154a2.486 2.486 0 0 0 2.193 2.164c2.977.332 6.057.332 9.034 0a2.486 2.486 0 0 0 2.192-2.164a39.4 39.4 0 0 0 0-9.154a2.486 2.486 0 0 0-2.192-2.163' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-color: #7a1212;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8.47 8.47a.75.75 0 0 1 1.06 0L12 10.94l2.47-2.47a.75.75 0 1 1 1.06 1.06L13.06 12l2.47 2.47a.75.75 0 0 1-1.06 1.06L12 13.06l-2.47 2.47a.75.75 0 1 1-1.06-1.06L10.94 12L8.47 9.53a.75.75 0 0 1 0-1.06'/%3E%3Cpath fill='%231e1e1e' fill-rule='evenodd' d='M7.317 3.769a42.5 42.5 0 0 1 9.366 0c1.827.204 3.302 1.643 3.516 3.48c.37 3.157.37 6.346 0 9.503c-.215 1.837-1.69 3.275-3.516 3.48a42.5 42.5 0 0 1-9.366 0c-1.827-.205-3.302-1.643-3.516-3.48a41 41 0 0 1 0-9.503c.214-1.837 1.69-3.276 3.516-3.48m9.2 1.49a41 41 0 0 0-9.034 0A2.486 2.486 0 0 0 5.29 7.424a39.4 39.4 0 0 0 0 9.154a2.486 2.486 0 0 0 2.193 2.164c2.977.332 6.057.332 9.034 0a2.486 2.486 0 0 0 2.192-2.164a39.4 39.4 0 0 0 0-9.154a2.486 2.486 0 0 0-2.192-2.163' clip-rule='evenodd'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8.47 8.47a.75.75 0 0 1 1.06 0L12 10.94l2.47-2.47a.75.75 0 1 1 1.06 1.06L13.06 12l2.47 2.47a.75.75 0 0 1-1.06 1.06L12 13.06l-2.47 2.47a.75.75 0 1 1-1.06-1.06L10.94 12L8.47 9.53a.75.75 0 0 1 0-1.06'/%3E%3Cpath fill='%231e1e1e' fill-rule='evenodd' d='M7.317 3.769a42.5 42.5 0 0 1 9.366 0c1.827.204 3.302 1.643 3.516 3.48c.37 3.157.37 6.346 0 9.503c-.215 1.837-1.69 3.275-3.516 3.48a42.5 42.5 0 0 1-9.366 0c-1.827-.205-3.302-1.643-3.516-3.48a41 41 0 0 1 0-9.503c.214-1.837 1.69-3.276 3.516-3.48m9.2 1.49a41 41 0 0 0-9.034 0A2.486 2.486 0 0 0 5.29 7.424a39.4 39.4 0 0 0 0 9.154a2.486 2.486 0 0 0 2.193 2.164c2.977.332 6.057.332 9.034 0a2.486 2.486 0 0 0 2.192-2.164a39.4 39.4 0 0 0 0-9.154a2.486 2.486 0 0 0-2.192-2.163' clip-rule='evenodd'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
 }
 
 *, ::before, ::after{
@@ -37,6 +53,16 @@ body{
 
 h2{
     font-size: 28px;
+}
+
+.btn{
+    font-size: 14px;
+    color: #f4f4f4;
+    background-color: #4d4e50;
+}
+
+.btn:hover{
+    background-color: #6f7174;
 }
 
 .main{
@@ -75,17 +101,10 @@ h2{
 }
 
 #user_interface button{
-    font-size: 16px;
+    font-size: 14px;
     padding: 5px;
-    color: #0c0c0c;
-    background: #c28638;
     border: none;
     border-radius: 15px;
-}
-
-#user_interface button:hover{
-    color: #fff;
-    background: #ffc863;
 }
 
 #default_user_picture{
@@ -124,21 +143,34 @@ textarea:focus, textarea:active{
 }
 
 .diary_btn{
+    font-size: 14px;
+    border: none;
+    outline: none;
     position:absolute;
 }
 
 .diary_post{
     width: 100px;
-    bottom: 15px;
+    bottom: 10px;
     right: 45px;
+    padding: 3px;
+    border-radius: 10px;
 }
 
 .diary_cancel{
-    bottom: 15px;
-    right: 15px;
+    width: 30px;
+    height: 30px;
+    bottom: 8px;
+    right: 10px;
+}
+
+.diary_cancel:hover{
+    background-color: rgb(223, 56, 56);
 }
 
 #user_diary h2{
+    display: flex;
+    align-items: center;
     margin-bottom: 30px;
 }
 
@@ -181,4 +213,22 @@ textarea:focus, textarea:active{
 .diary_item .line{
     border-bottom: 1px solid #252525;
     margin: 20px 0px;
+}
+
+#delete_diary_btn{
+    width: 20px;
+    height: 20px;
+    border: none;
+    outline: none;
+}
+
+.error_message{
+    font-size: 16px;
+    font-weight: 400;
+    color: #df3838;
+    border: 1px solid #0c0c0c;
+    border-radius: 15px;
+    padding: 3px;
+    padding: 3px 10px;
+    margin-left: 30px;
 }

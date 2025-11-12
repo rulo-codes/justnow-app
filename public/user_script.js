@@ -1,3 +1,5 @@
+const errorMessage = document.getElementById("error_message");
+
 function toggleWindow(id){
   const div = document.getElementById(id);
   if(div.classList.contains("open-window")){
@@ -17,14 +19,21 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
 });
 
 document.getElementById('toggleDiaryBtn').addEventListener('click', () => {
-  toggleWindow("diary_add")
+  toggleWindow("diary_add");
 });
 
-document.getElementById('diary_post').addEventListener('click', async (e) => {
+document.getElementById('diary_cancel_btn').addEventListener('click', () => {
+  toggleWindow("diary_add");
+});
+
+document.getElementById('diary_post_btn').addEventListener('click', async (e) => {
   e.preventDefault();
   const diaryInput = document.getElementById('diary_input').value;
 
-  if (!diaryInput.trim()) return alert("Please write something");
+  if (!diaryInput.trim()){ 
+    errorMessage.style.color = '#df3838';
+    return errorMessage.textContent = "Please write something."
+  };
 
   const res = await fetch('/api/post', {
     method: 'POST',
@@ -36,9 +45,10 @@ document.getElementById('diary_post').addEventListener('click', async (e) => {
 
   const data = await res.json();
   if (!data.success) {
-    alert('Failed to post.');
+    errorMessage.textContent = "Failed to post." 
   } else {
-    alert('Diary Posted!');
+    errorMessage.textContent = "Entry saved."
+    errorMessage.style.color = '#178a39';
     document.getElementById('diary_input').value = "";
     loadDiaries();
   }
@@ -57,9 +67,9 @@ async function deleteDiary(diary_id){
 
   const data = await res.json();
   if(!data.success){
-    alert('Diary failed to delete.');
+    errorMessage.textContent = "Failed to erase entry.";
   } else {
-    alert('Diary deleted.');
+    errorMessage.textContent = "Entry erased.";
     loadDiaries();
   }
 };
@@ -74,7 +84,7 @@ async function loadDiaries() {
       const time = new Date(i.created_at).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'});
       return (
       `<div id=${i.id} class="diary_item">
-        <div class="diary_item_header"><h3>${date}  |  ${time}</h3><button id="delete_diary_btn" onclick="deleteDiary(${i.id})" title="Erase diary entry."><i class="solar--eraser-bold"></i></button></div>
+        <div class="diary_item_header"><h3>${date}  |  ${time}</h3><button id="delete_diary_btn" onclick="deleteDiary(${i.id})" title="Erase diary entry."><i class="solar--eraser-bold diary_delete_btn"></i></button></div>
         <div class="line"></div>
         <p>Just now... <span>${i.content}</span></p>
       </div>`
@@ -82,6 +92,7 @@ async function loadDiaries() {
     }).join('');
   } catch (err) {
     console.error('Error loading diaries:', err);
+    errorMessage.textContent = "Something went wrong.";
   }
 }
 

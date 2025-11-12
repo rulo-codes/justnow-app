@@ -9,11 +9,11 @@
 <body>
     <div class="main">
         <div class="box" id="user_diary">
-            <h2>Saved Entries</h2>
-            <div id="diary_add" class="diary_add open-window">
+            <h2>Saved Entries <span id="error_message" class="error_message"></span></h2>
+            <div id="diary_add" class="diary_add">
                 <textarea id="diary_input" placeholder="Just now..."></textarea>
-                <button id="diary_post" class="diary_btn diary_post">Post</button>
-                <i class="basil--cancel-outline diary_btn diary_cancel"></i>
+                <button id="diary_post_btn" class="btn diary_btn diary_post">Post</button>
+                <i id="diary_cancel_btn" class="basil--cancel-outline diary_btn diary_cancel"></i>
             </div>
             <div id="diaries">
             </div>
@@ -22,8 +22,8 @@
             <img id="default_user_picture" src="/assets/default_user.png" />
             <h2>Hello! <span id="userName"></span></h2>
             <p>How is your day today?</p>
-            <button name="toggleDiary" id="toggleDiaryBtn">Just now...</button>
-            <button id="logoutBtn">Logout</button>
+            <button name="toggleDiary" id="toggleDiaryBtn" class="btn">Just now...</button>
+            <button id="logoutBtn" class="btn">Logout</button>
         </div>
     </div>
     <script src="user_script.js"></script>
