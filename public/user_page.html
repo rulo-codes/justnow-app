@@ -8,22 +8,25 @@
 </head>
 <body>
     <div class="main">
+        <div class="box" id="user_interface">
+            <button name="toggleDiary" id="toggleDiaryBtn" class="svg--add btn"></button>
+            <button name="user_theme" id="user_theme" class="svg--brush btn"></button>
+            <button id="logoutBtn" class="svg--logout btn"></button>
+        </div>
         <div class="box" id="user_diary">
+            <div id="user_header">
+                <img id="default_user_picture" src="/assets/default_user.png" />
+                <h2>Hello!&nbsp;<span id="userName" class="user_name"></span></h2>
+                <p>How is your day today?</p>
+            </div>
             <h2>Saved Entries <span id="error_message" class="error_message"></span></h2>
             <div id="diary_add" class="diary_add">
                 <textarea id="diary_input" placeholder="Just now..."></textarea>
-                <button id="diary_post_btn" class="btn diary_btn diary_post">Post</button>
+                <button id="diary_post_btn" class="diary_btn diary_post">Post</button>
                 <i id="diary_cancel_btn" class="basil--cancel-outline diary_btn diary_cancel"></i>
             </div>
             <div id="diaries">
             </div>
-        </div>
-        <div class="box" id="user_interface">
-            <img id="default_user_picture" src="/assets/default_user.png" />
-            <h2>Hello! <span id="userName"></span></h2>
-            <p>How is your day today?</p>
-            <button name="toggleDiary" id="toggleDiaryBtn" class="btn">Just now...</button>
-            <button id="logoutBtn" class="btn">Logout</button>
         </div>
     </div>
     <script src="user_script.js"></script>
