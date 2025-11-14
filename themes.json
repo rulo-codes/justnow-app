@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "primaryColor": "#4582a8",
+        "secondaryColor": "#2a52c0",
+        "pattern": "--paw-svg"
+    },
+    {
+        "id": 2,
+        "primaryColor": "#E68CE0",
+        "secondaryColor": "#ED4CA4",
+        "pattern": "--flower-svg"
+    },
+    {
+        "id": 3,
+        "primaryColor": "#C3E3B3",
+        "secondaryColor": "#7AED61",
+        "pattern": "--clover-svg"
+    },
+    {
+        "id": 4,
+        "primaryColor": "#F0B486",
+        "secondaryColor": "#EDBB47",
+        "pattern": "--tree-svg"
+    },
+    {
+        "id": 5,
+        "primaryColor": "#D1D1D1",
+        "secondaryColor": "#FFFFFF",
+        "pattern": "--cloud-svg"
+    }
+]

@@ -4,6 +4,7 @@ const path = require('path');
 const qs = require('querystring');
 const bcrypt = require('bcrypt');
 const db = require('./db');
+const themeData = require('./themes.json');
 
 const publicPath = path.join(__dirname, 'public');
 let loggedInUser = null;
@@ -31,28 +32,35 @@ const server = http.createServer((req, res) => {
     });
     return;
   }
+
+  if(req.method === 'GET' && req.url === '/api/theme') {
+    res.setHeader('Content-Type', 'application/json');
+    res.statusCode = 200;
+    res.end(JSON.stringify(themeData));
+  }
   
   // Serve static files
-  if (req.method === 'GET') {
-    let filePath = req.url === '/' ? '/index.html' : req.url;
-    filePath = path.join(publicPath, filePath);
+    if (req.method === 'GET') {
+      let filePath = req.url === '/' ? '/index.html' : req.url;
+      filePath = path.join(publicPath, filePath);
 
-    const extname = path.extname(filePath);
-    let contentType = 'text/html';
-    if (extname === '.css') contentType = 'text/css';
-    else if (extname === '.js') contentType = 'application/javascript';
+      const extname = path.extname(filePath);
+      let contentType = 'text/html';
+      if (extname === '.css') contentType = 'text/css';
+      else if (extname === '.js') contentType = 'application/javascript';
+      else if (extname === '.svg') contentType = 'image/svg+xml';
 
-    fs.readFile(filePath, (err, content) => {
-      if (err) {
-        res.statusCode = 404;
-        res.end('404 Not Found');
-        return;
-      }
-      res.setHeader('Content-Type', contentType);
-      res.end(content);
-    });
-    return;
-  }
+      fs.readFile(filePath, (err, content) => {
+        if (err) {
+          res.statusCode = 404;
+          res.end('404 Not Found');
+          return;
+        }
+        res.setHeader('Content-Type', contentType);
+        res.end(content);
+      });
+      return;
+    }
 
   // POST /api/post (create diary)
   if (req.method === 'POST' && req.url === '/api/post') {

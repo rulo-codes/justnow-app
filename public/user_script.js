@@ -96,6 +96,26 @@ async function loadDiaries() {
   }
 }
 
+let themeSelectedId = 1;
+
+document.getElementById('user_theme').addEventListener('click', async () => {
+  const root = document.documentElement;
+  const res = await fetch('/api/theme');
+  const theme = await res.json();
+  
+  if(themeSelectedId >= theme.length){
+    themeSelectedId = 1;
+  }else {
+    themeSelectedId += 1;
+  }
+
+  console.log(themeSelectedId)
+  const target = theme.find(i => i.id === themeSelectedId);
+  root.style.setProperty('--theme-primary-color', target.primaryColor);
+  root.style.setProperty('--theme-secondary-color', target.secondaryColor);
+  document.querySelector('.bg-pattern').style.backgroundImage = `var(${target.pattern}), linear-gradient(var(--theme-primary-color), var(--theme-primary-color))`;
+});;
+
 const user = localStorage.getItem('username');
 if (user) document.getElementById('userName').textContent = `${user}`;
 
