@@ -79,6 +79,35 @@ async function loadDiaries() {
     const res = await fetch('/api/posts');
     const diaries = await res.json();
     const container = document.getElementById('diaries');
+    const newArray = [];
+    let page = [];
+    let num = 1;
+    
+    diaries.map((i, k) => {
+      console.log(i);
+      if(k === diaries.length - 1){
+          page.push(i);
+          newArray.push(page);
+          num = 1;
+          page = [];
+          console.log("last index");
+      }else {
+        if(num < 2){
+          page.push(i);
+          num += 1;
+          console.log("object added");
+        
+        }else{
+          page.push(i);
+          console.log("erased");
+          num = 1;
+          newArray.push(page);
+          page = [];
+        }
+      }
+    });
+    console.log(page);
+    console.log(newArray);
     container.innerHTML = diaries.map(i => {
       const date = new Date(i.created_at).toLocaleDateString('en-US');
       const time = new Date(i.created_at).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'});
