@@ -17,10 +17,17 @@
         <div class="box" id="user_diary">
             <div id="user_header">
                 <img id="default_user_picture" src="/assets/default_user.png" />
+                <div>
                 <h2>Hello!&nbsp;<span id="userName" class="user_name"></span></h2>
                 <p>How is your day today?</p>
+                </div>
             </div>
             <h2>Saved Entries <span id="error_message" class="error_message"></span></h2>
+            <div class="box" id="user_interface">
+                <button name="toggleDiary" id="toggleDiaryBtn" class="svg--add btn"></button>
+                <button name="user_theme" id="user_theme" class="svg--brush btn"></button>
+                <button id="logoutBtn" class="svg--logout btn"></button>
+            </div>
             <div id="diary_add" class="diary_add">
                 <textarea id="diary_input" placeholder="Just now..."></textarea>
                 <button id="diary_post_btn" class="diary_btn diary_post">SAVE</button>
@@ -28,7 +35,7 @@
             </div>
             <div id="diaries">
             </div>
-            <div id="page_control"></div>
+            <div id="set_page"></div>
         </div>
     </div>
     <script src="user_script.js"></script>

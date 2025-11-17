@@ -26,7 +26,7 @@
     {
         "id": 5,
         "primaryColor": "#D1D1D1",
-        "secondaryColor": "#FFFFFF",
+        "secondaryColor": "#000000",
         "pattern": "--cloud-svg"
     }
 ]

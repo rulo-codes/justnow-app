@@ -9,18 +9,22 @@ function toggleWindow(id){
   }
 }
 
-document.getElementById('logoutBtn').addEventListener('click', async () => {
-  const res = await fetch('/logout', { method: 'POST' });
-  if (res.ok) {
-    window.location.href = '/index.html';
-  } else {
-    alert('Error logging out.');
-  }
-});
+document.querySelectorAll('#logoutBtn').forEach(i => {
+  i.addEventListener('click', async () => {
+    const res = await fetch('/logout', { method: 'POST' });
+    if (res.ok) {
+      window.location.href = '/index.html';
+    } else {
+      alert('Error logging out.');
+    }
+  });
+})
 
-document.getElementById('toggleDiaryBtn').addEventListener('click', () => {
-  toggleWindow("diary_add");
-});
+document.querySelectorAll('#toggleDiaryBtn').forEach(i => {
+  i.addEventListener('click', () => {
+    toggleWindow("diary_add");
+  });
+})
 
 document.getElementById('diary_cancel_btn').addEventListener('click', () => {
   toggleWindow("diary_add");
@@ -50,6 +54,7 @@ document.getElementById('diary_post_btn').addEventListener('click', async (e) =>
     errorMessage.textContent = "Entry saved."
     errorMessage.style.color = '#178a39';
     document.getElementById('diary_input').value = "";
+    toggleWindow('diary_add');
     loadDiaries();
   }
 });
@@ -74,41 +79,57 @@ async function deleteDiary(diary_id){
   }
 };
 
+let diaryPage = [];
+
 async function loadDiaries() {
   try {
     const res = await fetch('/api/posts');
     const diaries = await res.json();
-    const container = document.getElementById('diaries');
-    const newArray = [];
+    const setPage = document.getElementById('set_page');
     let page = [];
     let num = 1;
+    diaryPage = [];
     
     diaries.map((i, k) => {
-      console.log(i);
       if(k === diaries.length - 1){
           page.push(i);
-          newArray.push(page);
+          diaryPage.push(page);
           num = 1;
           page = [];
-          console.log("last index");
       }else {
-        if(num < 2){
+        if(num < 5){
           page.push(i);
           num += 1;
-          console.log("object added");
         
         }else{
           page.push(i);
-          console.log("erased");
+          console.log("Page updated");
           num = 1;
-          newArray.push(page);
+          diaryPage.push(page);
           page = [];
         }
       }
     });
-    console.log(page);
-    console.log(newArray);
-    container.innerHTML = diaries.map(i => {
+
+    setPage.innerHTML = diaryPage.map((i, k) => {
+      const num = k + 1;
+      return(
+        `
+        <a onclick='loadPage(${k})'>${num}</a>
+        `
+      )
+    }).join('');
+
+    loadPage(0);
+  } catch (err) {
+    console.error('Error loading diaries:', err);
+    errorMessage.textContent = "Something went wrong.";
+  }
+}
+
+function loadPage(pageNum = 0){
+    const container = document.getElementById('diaries');
+    container.innerHTML = diaryPage[pageNum].map(i => {
       const date = new Date(i.created_at).toLocaleDateString('en-US');
       const time = new Date(i.created_at).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'});
       return (
@@ -119,15 +140,12 @@ async function loadDiaries() {
       </div>`
       )
     }).join('');
-  } catch (err) {
-    console.error('Error loading diaries:', err);
-    errorMessage.textContent = "Something went wrong.";
-  }
 }
 
 let themeSelectedId = 1;
 
-document.getElementById('user_theme').addEventListener('click', async () => {
+document.querySelectorAll('#user_theme').forEach(i => {
+  i.addEventListener('click', async () => {
   const root = document.documentElement;
   const res = await fetch('/api/theme');
   const theme = await res.json();
@@ -138,12 +156,12 @@ document.getElementById('user_theme').addEventListener('click', async () => {
     themeSelectedId += 1;
   }
 
-  console.log(themeSelectedId)
   const target = theme.find(i => i.id === themeSelectedId);
   root.style.setProperty('--theme-primary-color', target.primaryColor);
   root.style.setProperty('--theme-secondary-color', target.secondaryColor);
   document.querySelector('.bg-pattern').style.backgroundImage = `var(${target.pattern}), linear-gradient(var(--theme-primary-color), var(--theme-primary-color))`;
-});;
+  });
+})
 
 const user = localStorage.getItem('username');
 if (user) document.getElementById('userName').textContent = `${user}`;
