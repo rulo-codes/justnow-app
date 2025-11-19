@@ -124,6 +124,7 @@ async function loadDiaries() {
   } catch (err) {
     console.error('Error loading diaries:', err);
     errorMessage.textContent = "Something went wrong.";
+    window.location.href = '/index.html';
   }
 }
 
@@ -165,5 +166,7 @@ document.querySelectorAll('#user_theme').forEach(i => {
 
 const user = localStorage.getItem('username');
 if (user) document.getElementById('userName').textContent = `${user}`;
+
+
 
 loadDiaries();

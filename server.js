@@ -11,11 +11,12 @@ let loggedInUser = null;
 
 const server = http.createServer((req, res) => {
   // GET /api/posts (fetch diaries)
+  
   if (req.method === 'GET' && req.url === '/api/posts') {
     if(!loggedInUser || !loggedInUser.id){
       console.error("Error: Unauthorized");
       res.writeHead(401, {'Content-Type': 'application/json'});
-      return res.end(JSON.stringify({ error: "Unauthorized."}));
+      return res.end(JSON.stringify({success: false, error: "Unauthorized."}));
     }
 
     const userId = loggedInUser.id;
@@ -69,6 +70,7 @@ const server = http.createServer((req, res) => {
       res.statusCode = 401;
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify({success: false, error: "Unauthorized. Please log in."}));
+
       return;
     }
 

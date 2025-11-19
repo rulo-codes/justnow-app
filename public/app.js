@@ -16,6 +16,7 @@ document.getElementById('loginInput').addEventListener('submit', async (e) => {
   } else {
     document.getElementById('loginError').textContent =
       data?.error || 'Login failed.';
+    window.location.href = '/index.html';
   }
 });
 
